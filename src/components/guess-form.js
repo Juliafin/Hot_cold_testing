@@ -6,14 +6,16 @@ export default class GuessForm extends React.Component {
     onGuess(event) {
         event.preventDefault();
 
-        if (this.props.onGuess) {
-            const value = this.input.value;
+      const value = this.input.value;
+        if (this.props.onGuess && value) {
             this.props.onGuess(value);
         }
         this.input.value = '';
     }
 
     render() {
+
+      
         return (
             <form onSubmit={e => this.onGuess(e)}>
                 <label htmlFor="userGuess">Enter your Guess</label>

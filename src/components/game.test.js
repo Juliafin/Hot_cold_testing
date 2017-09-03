@@ -93,23 +93,38 @@ describe('<Game />', () => {
 
   it ('Renders the Header component', () => {
     const renderedGame = shallow(<Game />);
-
-    const gameInstance = shallow(<Game />).instance();
     
-
-    expect(renderedGame.contains([<Header onNewGame={() => {gameInstance.newGame()}} />]))
+    expect(renderedGame.find('Header')).toHaveLength(1);
   })
 
   it ('Renders the GuessSection component', () => {
     const renderedGame = shallow(<Game />);
     
-    expect(renderedGame.equals([<GuessSection feedback={renderedGame.state().feedback} />])).toEqual(true)
+    expect(renderedGame.find('GuessSection')).toHaveLength(1);
+    console.log('This test will pass');
+  
   })
 
   it ('Renders the GuessList component', () => {
     const renderedGame = shallow(<Game />);
     
-    expect(renderedGame.contains([<GuessList feedback={renderedGame.state().guesses} />]))
+    expect(renderedGame.find('GuessList')).toHaveLength(1);
+  })
+
+  xit ('Calls this.guess properly', () => {
+    const renderedGame = mount(<Game />);
+
+    const callback = jest.fn()
+    renderedGame.instance().guess = callback;
+    renderedGame.update();
+
+    const GuessForminstance = renderedGame.find('form');
+    console.log(GuessForminstance);
+
+    GuessForminstance.simulate('submit');
+    expect(callback).toHaveBeenCalled();
+
+    
   })
 
 })
